@@ -13,7 +13,12 @@ int main()
         perror("Failed to open character device");
         goto error;
     }
-
+    const char algorithm = '1';  // 1. Timsort   2.pdqsort   3.libsort
+    ssize_t written = write(fd, &algorithm, sizeof(algorithm));
+    if (written < 0) {
+        perror("Failed to write control command");
+        goto error;
+    }
     size_t n_elements = 1000;
     size_t size = n_elements * sizeof(int);
     int *inbuf = malloc(size);
